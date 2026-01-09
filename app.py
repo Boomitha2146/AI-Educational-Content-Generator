@@ -20,12 +20,13 @@ st.subheader("For College Professors | FDP | Curriculum Design")
 def load_model():
     model_name = "microsoft/Phi-3-mini-4k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        device_map="cuda" if torch.cuda.is_available() else "cpu",
-        torch_dtype="auto",
-        trust_remote_code=False
-    )
+   model = AutoModelForCausalLM.from_pretrained(
+    model_name,
+    device_map="cpu",
+    torch_dtype=torch.float32,
+    trust_remote_code=False
+)
+
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
