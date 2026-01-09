@@ -20,13 +20,12 @@ st.subheader("For College Professors | FDP | Curriculum Design")
 def load_model():
     model_name = "microsoft/Phi-3-mini-4k-instruct"
 
-   model = AutoModelForCausalLM.from_pretrained(
-    model_name,
-    device_map="cpu",
-    torch_dtype=torch.float32,
-    trust_remote_code=False
-)
-
+    model = AutoModelForCausalLM.from_pretrained(
+        model_name,
+        device_map="cpu",
+        torch_dtype=torch.float32,
+        trust_remote_code=False
+    )
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
@@ -37,6 +36,7 @@ def load_model():
         max_new_tokens=600,
         do_sample=False
     )
+
     return generator
 
 generator = load_model()
