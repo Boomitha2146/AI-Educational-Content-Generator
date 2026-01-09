@@ -1,6 +1,6 @@
 import streamlit as st
-from transformers import AutoModelForCausalLM, AutoTokenizer, pipeline
 import torch
+from transformers import pipeline, AutoTokenizer
 
 # -----------------------------
 # Page Configuration
@@ -20,19 +20,13 @@ st.subheader("For College Professors | FDP | Curriculum Design")
 def load_model():
     model_name = "microsoft/Phi-3-mini-4k-instruct"
 
-    model = AutoModelForCausalLM.from_pretrained(
-        model_name,
-        device_map="cpu",
-        torch_dtype=torch.float32,
-        trust_remote_code=False
-    )
-
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     generator = pipeline(
-        "text-generation",
-        model=model,
+        task="text-generation",
+        model=model_name,   # 👈 IMPORTANT (see problem 2)
         tokenizer=tokenizer,
+        device="cpu",
         max_new_tokens=600,
         do_sample=False
     )
@@ -40,7 +34,6 @@ def load_model():
     return generator
 
 generator = load_model()
-
 # -----------------------------
 # Sidebar Inputs (User Context)
 # -----------------------------
