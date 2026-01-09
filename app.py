@@ -18,22 +18,19 @@ st.subheader("For College Professors | FDP | Curriculum Design")
 # -----------------------------
 @st.cache_resource
 def load_model():
-    model_name = "microsoft/Phi-3-mini-4k-instruct"
+    model_name = "google/flan-t5-base"
 
     tokenizer = AutoTokenizer.from_pretrained(model_name)
 
     generator = pipeline(
-        task="text-generation",
-        model=model_name,   # 👈 IMPORTANT (see problem 2)
+        task="text2text-generation",
+        model=model_name,
         tokenizer=tokenizer,
         device="cpu",
-        max_new_tokens=600,
-        do_sample=False
+        max_new_tokens=512
     )
 
     return generator
-
-generator = load_model()
 # -----------------------------
 # Sidebar Inputs (User Context)
 # -----------------------------
